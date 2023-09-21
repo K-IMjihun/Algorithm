@@ -31,10 +31,9 @@ class Solution {
                 list.add(count);
                 count = 1;
                 a = q.poll();
-                System.out.println(q.size());
-                            if(q.isEmpty()){
-                list.add(count);
-            }
+                if(q.isEmpty()){
+                    list.add(count);
+                }   
                 continue;
             }
 
