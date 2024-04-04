@@ -16,8 +16,7 @@ public class Main {
 
   private static String check(String input) {
     Stack<Character> characters = new Stack<>();
-    boolean answer = true;
-    char character;
+
     for (int i = 0; i < input.length(); i++) {
       // 괄호를 여는 부분이면 stack에 저장
       if (input.charAt(i) == '(' || input.charAt(i) == '[') {
@@ -28,33 +27,18 @@ public class Main {
       else if (input.charAt(i) == ')'|| input.charAt(i) == ']') {
         // 스택이 비어있다면 실패
         if (characters.isEmpty()) {
-          answer = false;
-          break;
+          return "no";
         }
 
         // 비어있지 않다면
-        character = characters.pop();
+        char character = characters.pop();
 
-
-        if(character == '('){
-          if(!(input.charAt(i) == ')')){
-            answer = false;
-            break;
-          }
-        }
-        else if(character == '['){
-          if(!(input.charAt(i) == ']')){
-            answer = false;
-            break;
-          }
+        if((character == '(' && input.charAt(i) !=')') ||
+            (character == '[' && input.charAt(i) != ']')){
+            return "no";
         }
       }
     }
-    if(answer && characters.isEmpty()){
-      return "yes";
-    }
-    else{
-      return "no";
-    }
+    return characters.isEmpty() ? "yes" : "no";
   }
 }
