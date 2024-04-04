@@ -18,13 +18,15 @@ public class Main {
     Stack<Character> characters = new Stack<>();
 
     for (int i = 0; i < input.length(); i++) {
+      
+      char currentChar = input.charAt(i);
       // 괄호를 여는 부분이면 stack에 저장
-      if (input.charAt(i) == '(' || input.charAt(i) == '[') {
-        characters.push(input.charAt(i));
+      if (currentChar == '(' || currentChar == '[') {
+        characters.push(currentChar);
       }
 
       // 괄호를 닫는 부분
-      else if (input.charAt(i) == ')'|| input.charAt(i) == ']') {
+      else if (currentChar == ')'|| currentChar == ']') {
         // 스택이 비어있다면 실패
         if (characters.isEmpty()) {
           return "no";
@@ -33,8 +35,8 @@ public class Main {
         // 비어있지 않다면
         char character = characters.pop();
 
-        if((character == '(' && input.charAt(i) !=')') ||
-            (character == '[' && input.charAt(i) != ']')){
+        if((character == '(' && currentChar !=')') ||
+            (character == '[' && currentChar != ']')){
             return "no";
         }
       }
