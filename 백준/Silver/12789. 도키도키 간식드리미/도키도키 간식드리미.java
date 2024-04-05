@@ -6,22 +6,26 @@ public class Main{
     Scanner sc = new Scanner(System.in);
     int N = sc.nextInt();
     int student[] = new int [N];
+    Queue<Integer> queue = new LinkedList<>();
     for(int i=0;i<N;i++) {
-      student[i] = sc.nextInt();
+//      student[i] = sc.nextInt();
+      queue.add(sc.nextInt());
     }
     int min = 1;
     Stack<Integer>stack = new Stack<>();
-    for(int i=0;i<N;i++) {
-      if(student[i] != min) {
-        if(!stack.isEmpty() && stack.peek() == min) {
+    while (!queue.isEmpty()){
+      int currentNumber = queue.peek();
+      if(currentNumber != min){
+        if(!stack.isEmpty() && stack.peek() == min){
           stack.pop();
-          i--;
           min++;
-        }else {
-          stack.push(student[i]);
         }
-
-      }else {
+        else {
+          stack.push(queue.poll());
+        }
+      }
+      else {
+        queue.poll();
         min++;
       }
     }
