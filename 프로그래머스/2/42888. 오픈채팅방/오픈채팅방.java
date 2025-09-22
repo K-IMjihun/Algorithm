@@ -1,36 +1,36 @@
 import java.util.*;
 
-public class Solution {
+class Solution {
     public String[] solution(String[] record) {
-        Map<String, String> userNicknames = new HashMap<>();
-        List<String[]> events = new ArrayList<>();
-
-        for (String entry : record) {
-            String[] parts = entry.split(" ");
-            String command = parts[0];
-            String userId = parts[1];
-
-            if (command.equals("Enter")) {
-                String nickname = parts[2];
-                userNicknames.put(userId, nickname);
-                events.add(new String[]{userId, "님이 들어왔습니다."});
-            } else if (command.equals("Leave")) {
-                events.add(new String[]{userId, "님이 나갔습니다."});
-            } else if (command.equals("Change")) {
-                String nickname = parts[2];
-                userNicknames.put(userId, nickname);
+        
+        // 최종 이름 저장할 Map
+        Map<String, String> map = new HashMap<>();
+        
+        for(String rec : record){
+            String[] sliceRecord = rec.split(" ");
+            
+            // enter와 change 일 경우에만 이름 변경
+            if(sliceRecord[0].equals("Enter") || sliceRecord[0].equals("Change")){
+                map.put(sliceRecord[1], sliceRecord[2]);
             }
+            
         }
-
-        String[] result = new String[events.size()];
-        int i = 0;
-        for (String[] event : events) {
-            String userId = event[0];
-            String message = event[1];
-            String finalMessage = userNicknames.get(userId) + message;
-            result[i++] = finalMessage;
+        
+        // 출력값 저장
+        List<String> answer = new ArrayList<>();
+        for(String rec : record){
+             String[] sliceRecord = rec.split(" ");
+            
+            // enter와 leave 일 경우에만 출력
+            if(sliceRecord[0].equals("Enter")){
+                answer.add(map.get(sliceRecord[1]) + "님이 들어왔습니다.");
+                
+            } else if(sliceRecord[0].equals("Leave")){
+                answer.add(map.get(sliceRecord[1]) + "님이 나갔습니다.");
+            }
+            
         }
-
-        return result;
+        
+        return answer.toArray(new String[answer.size()]);
     }
 }
